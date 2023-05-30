@@ -38,6 +38,7 @@ xaringanExtra::use_tile_view()
 
 ```{r, eval=FALSE, echo=FALSE}
 # make pdf of slides
+remotes::install_github("jhelvy/xaringanBuilder")
 xaringanBuilder::build_pdf("./01_introduction.Rmd")
 ```
 
