@@ -9,12 +9,12 @@ Authors:
 + João Pedro Carmezim Correia, IGTP
 + Will Beasley, Univ. of Oklahoma Health Sciences Center
 
-The slides are saved as PDFs or HTML. 
+The slides are saved as PDFs. 
 
-| Topic | PDF | HTML |
-|:-----:|:---:|:----:|
-| Introduction | [01_introduction.pdf](01_introduction.pdf) | [01_introduction.html](01_introduction.html) | 
-| Examples | [02_examples.pdf](02_examples.pdf) | [02_examples.html](02_examples.html) | 
+| Topic | PDF | 
+|:-----:|:---:|
+| Introduction | [01_introduction.pdf](01_introduction.pdf) |
+| Examples | [02_examples.pdf](02_examples.pdf) |
 
 
 ### Knitting the Slides

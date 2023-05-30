@@ -57,6 +57,7 @@ sasdata/
 libs/
 
 # Exclude .Rmd output
+*.html
 **/figure-html/
 
 # Exclude Text
