@@ -1,0 +1,68 @@
+:root {
+  --color-main: #000080; 
+  --color-alt: #FFFFFF;
+  --color-a: #87CEEB;
+}
+
+/*.content > ul, ol, li, p { font-size: 30px; }*/
+
+.content > h1, h2, h3, p {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.content > ul, ol {
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+li {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/*
+.remark-slide-number {
+  font-size: 11px;
+  color: var(--color-alt);
+}
+
+a { color: var(--color-a); }
+*/
+
+.split-title > .row:first-of-type {
+  height: 35%; width: 100%; position: absolute; top: 0; left: 0;
+  background-color: var(--color-alt); color: var(--color-main);
+}
+.split-title > .row:nth-of-type(2) {
+  height: 65%; width: 100%; position: absolute; left: 0; top: 35%;
+  background-color: var(--color-main); color: var(--color-alt); 
+}
+
+.split-main1 > .row:first-of-type {
+  height: 15%; width: 100%; position: absolute; top: 0; left: 0;
+/*  background-color: var(--color-main); color: var(--color-alt); */
+}
+.split-main1 > .row:nth-of-type(2) {
+  height: 80%; width: 100%; position: absolute; left: 0; bottom: 5%;
+}
+.split-main1 > .row:nth-of-type(3) {
+  height: 5%; width: 100%; position: absolute; bottom: 0; left: 0;
+/*  background-color: var(--color-main); color: var(--color-alt);*/
+}
+
+.split-main2 > .row:first-of-type { 
+  height: 15%; width: 100%; position: absolute; top: 0; left: 0;
+/*  background-color: var(--color-main); color: var(--color-alt); */
+}
+.split-main2 > .row:nth-of-type(2) { 
+  height: 40%; width: 100%; position: absolute; left: 0; top: 15%;
+}
+.split-main2 > .row:nth-of-type(3) { 
+  height: 40%; width: 100%; position: absolute; left: 0; bottom: 5%;
+}
+.split-main2 > .row:nth-of-type(4) { 
+  height: 5%; width: 100%; position: absolute; bottom: 0; left: 0;
+/*  background-color: var(--color-main); color: var(--color-alt); */
+  vertical-align: middle;
+}
