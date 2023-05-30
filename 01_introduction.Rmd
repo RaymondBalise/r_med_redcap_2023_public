@@ -1,0 +1,373 @@
+---
+title: "Using REDCap and R to Rapidly Produce Biomedical Publications"
+subtitle: "01 - Introduction"
+author: "Raymond Balise with Anna Calderon, Belén Hervera, Tyler Bartholomew, Stephan Kadauke, João Pedro Carmezim Correia, and Will Beasley"
+date: "`r format(Sys.time(), '%b %d, %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ["default", "assets/sydney.css", "assets/cssninja-scaffold.css", "assets/ninjutsu.css"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: false
+      highlightSpans: true
+      countIncrementalSlides: false
+      beforeInit: "assets/macros.js"
+      ratio: '16:9'  # alternatives '16:9' or '4:3' or others e.g. 13:9
+      navigation:
+        scroll: false  # disable slide transitions by scrolling
+editor_options: 
+  chunk_output_type: console
+params:
+  use_data: FALSE
+---
+
+```{r setup, echo = FALSE}
+knitr::opts_chunk$set(include = TRUE)
+
+source("./assets/color_funs.R")
+
+xaringanExtra::use_tile_view()
+```
+
+```{r jquery, echo=FALSE}
+# This is to deal with issues when making slides.
+# See: https://github.com/jhelvy/xaringanBuilder/issues/46
+#htmltools::tagList(rmarkdown::html_dependency_jquery())
+```
+
+```{r, eval=FALSE, echo=FALSE}
+# make pdf of slides
+xaringanBuilder::build_pdf("./01_introduction.Rmd")
+```
+
+```{r, echo=FALSE}
+# Helper packages - need dplyr and ggplot
+library(conflicted)
+suppressMessages(conflict_prefer("select", "dplyr"))
+suppressMessages(conflict_prefer("filter", "dplyr"))
+suppressPackageStartupMessages(library(tidyverse))
+library(ggthemes)
+
+suppressPackageStartupMessages(library(tidymodels))
+tidymodels_prefer()
+
+library(knitr)
+
+remotes::install_github("hadley/emo", quiet = TRUE)
+```
+# The Plan
+
+.small[
+.pull-left[
++ What is REDCap (and why bother)?
++ How to build a basic case report form
++ What is rational to do in REDCap
+    + Multiple instruments
+    + Longitudinal assessments
+    + Repeated instruments
++ Show the Miami needle exchange database (IDEA)
++ Using `rUM` to make a publication ready paper
+]
+.pull-right[
++ The manual export (and why it is suboptimal)
++ Importing all forms from a project into R with tidyREDCap
++ Using tidyREDCap summary functions to add to the paper
++ What `REDCapTidieR` does
++ What `REDCapDM` does
++ Getting data into REDCap with `REDCapR`
+]
+]
+
+---
+class: segue
+
+What is REDCap (and why bother)?
+
+---
+# What's the big deal?
+
++ Based at Vanderbilt University and supported by the National Institutes of Health
++ Not open-source (the license specifies noncommercial research use only)
++ Continuous development since 2004
++ Supports researcher- and participant-facing data entry
++ Supports online and offline data collection
+
+---
+# By the Numbers
++ Free to consortium members (slightly limited by international export controls)
++ Wildly popular  
+  + 6,000+ institutions in more than 150 countries
+  + Acknowledged in more than 23,000 articles
+
+.center[![:scale 60%](images/01_introduction/map.jpg)]
+
+---
+# Technology and Legal
+
++ Tech 
+    + Written in PHP
+    + Database is MySQL or Maria DB
+    + Authentication includes LDAP, Shibboleth, OpenID, Google OAuth2 and more
+    + Solid API support
++ Legal
+    + REDCap is 21 CFR Part 11-ready
+    + Built-in logging and audit trails
+    + Designed to support *safe harbor* deidentification
+    
+---
+# How do I access it?
+
++ Most academic medical centers have it.
++ Check the partner list: https://projectredcap.org/partners/.
++ We will use the demo instance at Vanderbilt: https://redcapdemo.vanderbilt.edu/.
+    + Normally, you will use point-and-click tools.
+    + Today, we will show you things and you will have read-only access to some data.
+    
+---
+class: segue
+
+Workflows
+
+---
+# Steps
+
+1. Create a project
+2. Add/create a data entry form/instrument
+3. Collect/enter data
+4. View/summarize in REDCap
+5. Export for additional magic
+
+---
+# But wait... there's more!
+
++ Multi-site support with Data Access Groups
++ Built-in, multi-language support
++ Randomization
++ Longitudinal projects with study calendars and scheduling
++ Repeated instruments for assessing unplanned repeats
+    - Describe each "stop by" clinic visit
+    - Describe each adverse event
++ Public or private dashboards
++ Send emails/text
++ Extensible via *External Modules*
+
+---
+# Create A Project $_1$
+
+.center[![:scale 45%](images/01_introduction/new_project.jpg)]
+
+---
+# Create A Project $_2$
+
+* Use the **Designer** to add your content.
+
+.center[![:scale 55%](images/01_introduction/setup.jpg)]
+
+---
+# Add/create a data entry instrument/form.
+
++ Add an instrument from the REDCap Shared Instrument library (at Vanderbilt).  
++ Make your own data entry form.
++ Do both.
+
+.center[![:scale 70%](images/01_introduction/designer0.jpg)]
+
+---
+# REDCap Shared Instrument Library $_1$
+
+* You can point and click to add one of the thousands of instruments in the REDCap library.
+
+.center[![:scale 60%](images/01_introduction/designer1.jpg)]
+
+
+---
+# REDCap Shared Instrument Library $_2$
+
+.center[![:scale 60%](images/01_introduction/library.jpg)]
+
+
+---
+# REDCap Shared Instrument Library $_3$
+
+.center[![:scale 60%](images/01_introduction/drop.jpg)]
+
+---
+# REDCap Shared Instrument Library $_4$
+
+.center[![:scale 60%](images/01_introduction/select.jpg)]
+
+---
+# REDCap Shared Instrument Library $_5$
+
+.center[![:scale 60%](images/01_introduction/edit.jpg)]
+
+---
+# REDCap Shared Instrument Library $_6$
+
+The license for the instruments bans meaningful changes but you can change the appearance and set details:
+
+.center[![:scale 60%](images/01_introduction/details.jpg)]
+
+---
+# Create a Form - Question/Field Bank  $_1$
+
+.center[![:scale 60%](images/01_introduction/create.jpg)]
+
+---
+# Create a Form - Question/Field Bank  $_2$
+
++ The NIH .red[C]ommon .red[D]ata .red[E]lement Repository allows you to code questions consistently.
+
+.center[![:scale 60%](images/01_introduction/questions.jpg)]
+
+---
+# Create a Form - Question/Field Bank  $_3$
+
+Inside the NIH CDE Repository, the NCI variables are rich:
+
+.center[![:scale 42%](images/01_introduction/sex.jpg)]
+
+.center[![:scale 42%](images/01_introduction/orientation.jpg)]
+
+
+---
+# Create a Form - Question/Field Bank $_4$
+
+.center[![:scale 80%](images/01_introduction/NCI_sex.jpg)]
+
+---
+# Create a Form - Custom Questions $_1$
+
+.center[![:scale 60%](images/01_introduction/questions2.jpg)]
+
+---
+# Create a Form - Custom Questions $_2$
+
+You can make truly custom forms by adding your own field:
+
+.center[![:scale 75%](images/01_introduction/new_field.jpg)]
+
+.red[NOTICE:] Text can/should have .red[validation].
+
+---
+# Create a Form - Custom Questions $_3$
+
+.center[![:scale 80%](images/01_introduction/codes.jpg)]
+
+---
+# Create a Form - Custom Questions $_4$
+
+.center[![:scale 80%](images/01_introduction/field_note.jpg)]
+
+---
+# Create a Form - Custom Questions $_5$
+
+.center[![:scale 100%](images/01_introduction/crf.jpg)]
+
+---
+# Collect/Enter Data $_1$
+ 
+.pull-left[
++ After you have created your forms, the research team can enter data or you can turn the form into a survey.
++ To use surveys, you need to enable them for a project, then tag an individual form as a survey.
+]
+
+.pull-right[
+.center[![:scale 50%](images/01_introduction/enter.jpg)]
+]
+
+.center[![:scale 70%](images/01_introduction/survey.jpg)]
+
+---
+# Collect/Enter Data $_2$
+
++ The survey needs to be the first questionnaire/instrument.
+
+.center[![:scale 70%](images/01_introduction/enable.jpg)]
+
+.center[![:scale 70%](images/01_introduction/enabled.jpg)]
+
+---
+# Collect/Enter Data $_3$
+
+.center[![:scale 85%](images/01_introduction/distribution.jpg)]
+
+---
+# View/Summarize in REDCap
+
++ You can easily make public/private:
+    + dashboards with summary statistics and basic graphics
+    + quick **Stats & Charts** reports
+    + tabular reports
+
+---
+# Dashboards $_1$
+
+.center[![:scale 85%](images/01_introduction/dashboard.jpg)]
+
+---
+# Dashboards $_2$
+
+.center[![:scale 85%](images/01_introduction/dashboard_details.jpg)]
+
+---
+# Dashboards $_3$
+
+.center[![:scale 50%](images/01_introduction/dashboard1.jpg)]
+
+---
+# Stats & Charts $_1$
+
+.center[![:scale 85%](images/01_introduction/quick_charts.jpg)]
+
+---
+
+.center[![:scale 32%](images/01_introduction/quick_charts1.jpg)]
+
+---
+# Tabular Reports $_1$
+
+.center[![:scale 85%](images/01_introduction/reports.jpg)]
+
+---
+# Tabular Reports $_2$
+
+.center[![:scale 65%](images/01_introduction/reports1.jpg)]
+
+---
+# Export for Additional Magic $_1$
+
++ You can manually export any tabular report.
+
+.center[![:scale 65%](images/01_introduction/export.jpg)]
+
+---
+# Export for Additional Magic $_2$
+
++ Export a single form.
+
+.center[![:scale 65%](images/01_introduction/export_single.jpg)]
+
+---
+# Export for Additional Magic $_3$
+
+.center[![:scale 65%](images/01_introduction/export1.jpg)]
+
+---
+# Export for Additional Magic $_4$
+
+.center[![:scale 65%](images/01_introduction/export2.jpg)]
+
+---
+# Export for Additional Magic $_5$
+
+.pull-left-60[![:scale 100%](images/01_introduction/script.jpg)]
+
+.pull-right-36[![:scale 100%](images/01_introduction/csv.jpg)]
+
+---
+# API Export for Better Magic $_1$
+
+![:scale 80%](images/01_introduction/api.jpg)
+
