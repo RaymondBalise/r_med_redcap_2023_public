@@ -1,7 +1,7 @@
 ---
 title: "Using REDCap and R to Rapidly Produce Biomedical Publications"
 subtitle: "01 - Introduction"
-author: "Raymond Balise with Anna Calderon, Belén Hervera, Tyler Bartholomew, Stephan Kadauke, João Pedro Carmezim Correia, and Will Beasley"
+author: "Raymond Balise with Belén Hervera, Daniel Maya, Anna Calderon, Tyler Bartholomew, Stephan Kadauke, João Pedro Carmezim Correia, and Will Beasley"
 date: "`r format(Sys.time(), '%b %d, %Y')`"
 output:
   xaringan::moon_reader:
