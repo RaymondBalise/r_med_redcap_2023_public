@@ -280,7 +280,7 @@ Integrating with R
     + a data folder
     
 ---
-# .blue[`rUM`] Uses Posit's Brilliance
+# .blue[`rUM`] oUses Posit's Brilliance
 
 + .blue[`rUM`] uses the Quarto and R Markdown magic that Yihui Xie and his colleagues at Posit/RStudio and around the world have created.
 
@@ -659,7 +659,7 @@ features <- tribble(
   select(Feature, REDCapExporter, tidyREDCap, REDCapTidieR, REDCapDM)
 
 
-library(kableExtra)
+suppressPackageStartupMessages(library(kableExtra))
 features |> 
   kable() |> 
   kable_styling(full_width = FALSE)
@@ -724,6 +724,7 @@ tidyREDCap::import_instruments(
 + Because this project uses a custom subject ID name and numbering, do:
 
 ```{r eval=FALSE}
+# run me once
 tidyREDCap::import_instruments(
   url = "https://redcapdemo.vanderbilt.edu/api/", 
   token = Sys.getenv("IDEA_R_Medicine_2023_Public"), 
@@ -732,6 +733,7 @@ tidyREDCap::import_instruments(
 ```
 
 ```{r echo=FALSE, eval=FALSE}
+# run me once
 library(readr)
 write_rds(daily, "./data/daily.rds")
 write_rds(enrollment, "./data/enrollment.rds")
