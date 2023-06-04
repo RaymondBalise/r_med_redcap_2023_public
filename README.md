@@ -9,12 +9,17 @@ Authors:
 + João Pedro Carmezim Correia, IGTP
 + Will Beasley, Univ. of Oklahoma Health Sciences Center
 
-The slides are saved as PDFs. 
+The slides are saved as PDFs. You can browse the slides on GitHub using the links below.  
 
 | Topic | PDF | 
 |:-----:|:---:|
 | Introduction | [01_introduction.pdf](01_introduction.pdf) |
-| Examples | [02_examples.pdf](02_examples.pdf) |
+| IDEA (needle exchange) example and tidyREDCap | [02_examples.pdf](02_examples.pdf) |
+| REDCapDM slides | [REDCapDM_presentation.pdf](REDCapDM_presentation.pdf) |
+
+If you would like to download a copy of the slides click the **Download raw file** button:
+
+![](download.jpg)
 
 ### Accessing the Simulated Data
 
