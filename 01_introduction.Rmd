@@ -108,7 +108,7 @@ What is REDCap (and why bother)?
 
 + Tech 
     + Written in PHP
-    + Database is MySQL or Maria DB
+    + Database is MySQL or MariaDB
     + Authentication includes LDAP, Shibboleth, OpenID, Google OAuth2 and more
     + Solid API support
 + Legal
