@@ -31,7 +31,7 @@ IDEA_R_Medicine_2023_Public = "C94575BEF917A428CD9E92E5E99F0A5B"
 ### Knitting the Slides
 The slides are produced using R Markdown with Xaringan other add-on packages. If you don't have the `emo` package you need to get it.  You will need to build `emo`.  That code requires [RTools](https://cran.r-project.org/bin/windows/Rtools/) for Windows or Xcode for Mac (it is in the Mac *App Store*) to be installed on your computer.  After adding RTools or XCode run these three lines:
 
-```
+```r
 if (!requireNamespace("devtools")) install.packages("devtools")
 if (!requireNamespace("remotes")) install.packages("remotes")
 remotes::install_github("hadley/emo", quiet = TRUE)
