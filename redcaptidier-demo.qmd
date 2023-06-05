@@ -1,0 +1,51 @@
+---
+title: "REDCapTidieR demo"
+format: html
+editor: visual
+---
+
+```{r}
+# Install REDCapTidieR from CRAN (v0.4 just got published!)
+# install.packages("REDCapTidieR")
+
+library(REDCapTidieR)
+
+redcap_uri <- "https://redcapdemo.vanderbilt.edu/api/"
+token <- Sys.getenv("IDEA_R_Medicine_2023_Public")      # Defined in .Renviron
+
+# Import the project into a supertbl
+needle_exchange <- read_redcap(redcap_uri, token)
+
+# Explore the supertbl in RStudio IDE
+
+# Error messages
+
+  
+# Add labels (using {labelled})
+needle_exchange <- needle_exchange |>
+  make_labelled(format_labels = fmt_strip_trailing_colon)
+
+# Can we make the labels nicer?
+
+
+# Add statistical summaries (using {skimr})
+needle_exchange <- needle_exchange |>
+  add_skimr_metadata()
+
+# Pull data tibbles into environment (similar to tidyREDCap::import_instruments)
+needle_exchange |> bind_tibbles()
+
+# Extract a single data tibble from a supertbl
+enrollment2 <- needle_exchange |> 
+  extract_tibble("enrollment")
+
+# Memory considerations
+lobstr::obj_size(needle_exchange)
+
+lobstr::obj_size(needle_exchange, enrollment, enrollment2)
+
+# Write to Excel
+needle_exchange |>
+  write_redcap_xlsx("needle_exchange.xlsx")
+
+```
