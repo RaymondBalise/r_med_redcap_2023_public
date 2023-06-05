@@ -61,6 +61,27 @@ library(knitr)
   hierarchical structure of the data points.
 
 ---
+# Writing Itself is Easy
+
+```r
+REDCapR::redcap_write(
+  ds_to_write                 = ds_patient,
+  redcap_uri                  = credential$redcap_uri,
+  token                       = credential$token,
+  convert_logical_to_integer  = TRUE
+)
+```
+<https://ouhscbbmc.github.io/REDCapR/reference/redcap_write.html>
+
+.center[![:scale 75%](images/upload/documentation-write.png)]
+
+---
+# Preparation of the Datasets Takes Effort
+
++ Writing multiple datasets --each with the right grain.
++ Adding plumbing variables
+
+---
 If you are new to REDCap and its API,
 please first understand the concepts described in these two REDCapR [vignettes](https://ouhscbbmc.github.io/REDCapR/articles/):
 
@@ -73,6 +94,7 @@ please first understand the concepts described in these two REDCapR [vignettes](
 
 + Uses the [httr](https://httr.r-lib.org/) (which uses curl) to interact with a REDCap server.
 + In a sense, REDCapR's goal is to directly translate data between REDCap's MariaDB and R's `data.frame`.  
++ Also check out [redcapAPI](https://CRAN.R-project.org/package=redcapAPI).  Benjamin Nutter have talked a lot over the years.
 + Packages like [tidyREDCap](https://CRAN.R-project.org/package=tidyREDCap), [REDCapTidieR](https://CRAN.R-project.org/package=REDCapTidieR), & [REDCapDM](https://CRAN.R-project.org/package=REDCapDM) take it a step further for facilitating important tasks.
 + Currently, there haven't been any second-level efficiencies developed for uploading, so we'll use REDCapR.
 + For a list of all the packages (not just R packages), see  [REDCap Tools](https://redcap-tools.github.io/projects/) (<https://redcap-tools.github.io/projects/>).
@@ -86,3 +108,14 @@ please first understand the concepts described in these two REDCapR [vignettes](
 .center[![:scale 75%](images/upload/token-permission.png)]
 
 + Within REDCapR documentation, "import" means the client is uploading/writing to the server.  (Some packages define it differently.)
+
+---
+# Vignettes: Writing to a REDCap Project
+
++ <https://ouhscbbmc.github.io/REDCapR>
+
++ <https://ouhscbbmc.github.io/REDCapR/articles/longitudinal-and-repeating.html>
+  + Stephan and I developed this vignette
+
++ <https://ouhscbbmc.github.io/REDCapR/articles/workflow-write.html>
+  + Raymond and I developed this vignette

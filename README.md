@@ -17,6 +17,7 @@ The slides are saved as PDFs. You can browse the slides on GitHub using the link
 | IDEA (needle exchange) example and tidyREDCap | [02_examples.pdf](02_examples.pdf) |
 | REDCapDM slides | [REDCapDM_presentation.pdf](REDCapDM_presentation.pdf) |
 | REDCapTidieR slides | [REDCapTidieR_slides.pdf](REDCapTidieR_slides.pdf) |
+| REDCapR slides | [write-to-server.html](write-to-server.html) (I'll add the pdf today) |
 
 If you would like to download a copy of the slides click the **Download raw file** button:
 
