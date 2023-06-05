@@ -38,8 +38,8 @@ xaringanExtra::use_tile_view()
 
 ```{r, eval=FALSE, echo=FALSE}
 # make pdf of slides
-# remotes::install_github("jhelvy/xaringanBuilder")
-xaringanBuilder::build_pdf("./write-to-server.Rmd")
+remotes::install_github("jhelvy/xaringanBuilder")
+renderthis::to_pdf("./write-to-server.Rmd")
 ```
 
 ```{r, echo=FALSE}
@@ -47,9 +47,6 @@ library(knitr)
 # remotes::install_github("hadley/emo", quiet = TRUE)
 ```
 
-# Final Leg
-
----
 # Uploading vs Downloading?
 
 + Writing data _to_ REDCap is more difficult than reading data _from_ REDCap.
