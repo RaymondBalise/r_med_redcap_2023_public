@@ -32,6 +32,7 @@ xaringanExtra::use_tile_view()
 
 ```{r, eval=FALSE, echo=FALSE}
 # make pdf of slides
+htmltools::tagList(rmarkdown::html_dependency_jquery())
 xaringanBuilder::build_pdf("./02_examples.Rmd")
 ```
 
@@ -641,9 +642,9 @@ class: hide-slide-number
 ```{r features, echo=FALSE}
 features <- tribble(
   ~`Feature`,                                            ~tidyREDCap,      ~REDCapDM,           ~REDCapTidieR,       ~REDCapExporter,
-  "API Export Project into a R package",                emo::ji("x"),     emo::ji("x"),        emo::ji("x"),        emo::ji("check"),
-  "Manually Export and Load into R",                     emo::ji("check"), emo::ji("check"),    emo::ji("x"),        emo::ji("x"),
-  "API Export a Single Table",                           emo::ji("check"), emo::ji("x"),        emo::ji("x"),        emo::ji("x"),
+  "API Export Project into a R package",                 emo::ji("x"),     emo::ji("x"),        emo::ji("x"),        emo::ji("check"),
+  "Manually Export and Load into R",                     emo::ji("check"), emo::ji("check"),    emo::ji("check"),    emo::ji("x"),
+  "API Export a Single Table",                           emo::ji("check"), emo::ji("x"),        emo::ji("check"),    emo::ji("x"),
   "API Export All Tables",                               emo::ji("check"), emo::ji("check"),    emo::ji("check"),    emo::ji("x"),
   "Use/Show Field Labels",                               emo::ji("check"), emo::ji("check"),    emo::ji("check"),    emo::ji("x"),
   "Summary Tables Choose One Questions",                 emo::ji("check"), emo::ji("x"),        emo::ji("x"),        emo::ji("x"),
@@ -654,7 +655,7 @@ features <- tribble(
   "Recalcualte Calculated Fields",                       emo::ji("x"),     emo::ji("check"),    emo::ji("x"),        emo::ji("x"),
   "Split Data by Event/Form",                            emo::ji("x"),     emo::ji("check"),    emo::ji("x"),        emo::ji("x"),
   "Summarize Metadata",                                  emo::ji("x"),     emo::ji("x"),        emo::ji("check"),    emo::ji("x"),
-  "Convert to Excel",                                    emo::ji("x"),     emo::ji("x"),        emo::ji("check"),    emo::ji("x")
+  "Write Whole Project to Excel",                        emo::ji("x"),     emo::ji("x"),        emo::ji("check"),    emo::ji("x")
 )|> 
   select(Feature, REDCapExporter, tidyREDCap, REDCapTidieR, REDCapDM)
 
