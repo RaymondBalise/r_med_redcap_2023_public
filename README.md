@@ -42,5 +42,12 @@ Add a folder `data` to the project directory.
 
 After that you will need to pull the data one time.  To do that, find the two code chunks that contain `# run me once` and run those two code chunks.  
 
+
+### The Video
+
+Coming Soon
+
+In the live class Ray mentioned his keyboard shortcuts.  They are described on a post on his [Derailment blog](https://derailment.netlify.app/about/). You can read about and download his R, R Markdown and Quarto snippets from the post called [Using RStudio Code Snippets Including Quarto](https://derailment.netlify.app/2022-09-11-using-rstudio-code-snippets-including-quarto/).
+
 <br/>
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>
