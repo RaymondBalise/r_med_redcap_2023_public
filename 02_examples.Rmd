@@ -690,7 +690,7 @@ REDCap Processing with `tidyREDCap`
 .center[[https://raymondbalise.github.io/tidyREDCap/](https://raymondbalise.github.io/tidyREDCap/)]
 
 ---
-# Import Everything with .blue[`tidyREDCap:import_instruments()`]
+# Import Everything with .blue[`tidyREDCap::import_instruments()`]
 
 + .blue[`tidyREDCap`] allows you to pull in all the instruments by adding a .blue[`tidyREDCap::import_instruments()`] call.  All you need is the .red[URL] for your copy of REDCap and your .red[API] token.
 + .red[Do not save your API token in your code.]  It is way too easy to accidentally give away your password.
@@ -748,7 +748,17 @@ enrollment <- read_rds("./data/enrollment.rds")
 ---
 # What could possibly go wrong?
 
+
+.small[
 If you see:
+
+.red[
+```
+Error in inherits(ds, "data.frame") : object 'ds' not found
+```
+]
+
+You likely have a problem in the web-address/URL. Make sure you have included the **http://** at the beginning and **/api/** at the end.  It is easy to forget the **/** after **api**.
 
 .red[
 ```
@@ -777,6 +787,7 @@ Run \`rlang::last_error()` to see where the error occurred.
 ]
 
 The API key is not associated with a REDCap project.  Try to copy and paste it again. **_Restart R_**.
+]
 
 ---
 # Loaded Data
